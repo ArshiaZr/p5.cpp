@@ -7,7 +7,7 @@
 // Constructor implementation
 P5::P5() {
     this->_initialize();
-    this->_window.create(sf::VideoMode(this->width, this->height), "p5");
+    this->_window.create(sf::VideoMode(this->width, this->height), "p5", sf::Style::Default, sf::ContextSettings(0, 0, 2));
     this->_desktop = sf::VideoMode::getDesktopMode();
     this->_setDisplaySize();
 }
@@ -16,7 +16,6 @@ P5::P5() {
 void P5::registerMethod(std::string method, std::function<void()> callback){
     this->_registeredMethods[method] = callback;
 }
-
 
 // private functions
 void P5::_setSize(unsigned int w, unsigned int h){
@@ -27,7 +26,7 @@ void P5::_setSize(unsigned int w, unsigned int h){
 void P5::_setDisplaySize(){
     this->displayWidth = this->_desktop.width / 2;
     // TODO: - fix this
-    this->displayHeight = this->_desktop.height / 2 - 148;
+    this->displayHeight = this->_desktop.height / 2;
 }
 
 void P5::_initialize(){
@@ -40,12 +39,17 @@ void P5::_initialize(){
     this->webglVersion = WebglMode::P2D;
     // TODO: get acutal value of displayWidth and displayHeight
     this->_registeredMethods = {};
+    this->webglVersion = WebglMode::P2D;
+    this->_colorMode = ColorMode::RGB;
 }
 
 void P5::_setup(){
     if(this->_registeredMethods["setup"]){
         this->_callMethod("setup");
         this->_millisStart = getCurrentTimeMillis();
+        this->_updateWebglMode();
+        this->_updateWindowSize();
+        this->_centerWindow();
     }
 }
 
@@ -90,24 +94,34 @@ void P5::_updateWindowSize(){
 }
 
 void P5::_centerWindow(){
-    this->_window.setPosition(sf::Vector2i(this->displayWidth / 2 - this->width / 2, this->displayHeight / 2 + this->height / 2));
+    this->_window.setPosition(sf::Vector2i(this->displayWidth / 2 - this->width / 2, this->displayHeight / 2 - this->height / 2));
+}
+
+void P5::_updateWebglMode(){
+    // TODO: - impelemnt webgl mode
+    this->_window.setActive(false);
+    switch(this->webglVersion){
+        case WebglMode::P2D:
+            this->_window.create(sf::VideoMode(this->width, this->height), "p5", sf::Style::Default, sf::ContextSettings(0, 0, 2));
+            break;
+        case WebglMode::WEBGL:
+            // this->_window.create(sf::VideoMode(this->width, this->height), "p5", sf::Style::Default, sf::ContextSettings(0, 0, 2));
+            break;
+        default:
+            break;
+    }
+    this->_window.setActive(true);
 }
 
 void P5::run(){
     this->_setup();
 
-    std::cout << "display width: " << this->displayWidth << " display height: " << this->displayHeight << std::endl;
-    this->_centerWindow();
-
     long beforeTime = getCurrentTimeNanos();
     long overSleepTime = 0L;
-
-    // int noDelays = 0;
 
     while(this->_window.isOpen()){
         // events;
         this->_manageEvents();
-        this->_updateWindowSize();
 
         this->_draw();
 

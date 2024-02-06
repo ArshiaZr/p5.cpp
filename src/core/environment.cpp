@@ -4,7 +4,7 @@ double P5::frameRate(){
     return this->_frameRate;
 }
 
-void P5::frameRate(int fps){
+void P5::frameRate(unsigned int fps){
     if(fps > 0){
         this->_targetFrameRate = fps;
     }

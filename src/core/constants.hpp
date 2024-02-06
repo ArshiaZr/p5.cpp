@@ -64,7 +64,6 @@ enum ArcMode {
 // COLOR 
 enum ColorMode {
     RGB, // default
-    RGBA,
     HSB,
     HSL
 };
