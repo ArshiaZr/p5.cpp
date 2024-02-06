@@ -1,27 +1,29 @@
-CXX = g++
-CXXFLAGS = -std=c++11 -Wall
-LIBS = -lm  # Add any additional libraries if needed
+CXX := g++  # Compiler
+CXXFLAGS := -std=c++11 -Wall -Wextra  # Add the -std=c++11 flag here
+SRC_DIR := src
+SRC_FILES := $(wildcard $(SRC_DIR)/**/*.cpp $(SRC_DIR)/*.cpp)
+OBJ_DIR := build/obj
+OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
+BUILD_DIR := build
+EXECUTABLE := $(BUILD_DIR)/p5
 
-SRC_DIR = src
-BUILD_DIR = build
-BIN_DIR = $(BUILD_DIR)/bin
-
-# Add your source files here
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
-OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC_FILES))
-EXECUTABLE = $(BIN_DIR)/main
-
-.PHONY: all clean
+# SFML configuration
+SFML_DIR := /opt/homebrew/Cellar/sfml/2.6.1
+LIBS := -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS := -L$(SFML_DIR)/lib
+CXXFLAGS += -I$(SFML_DIR)/include
 
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJ_FILES)
-	@mkdir -p $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LIBS)
-
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(BUILD_DIR)
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+	$(CXX) $^ -o $@ $(LDFLAGS) $(LIBS)
+	@echo "Executable created: $@"
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@echo "Compiling: $<"
 
 clean:
 	rm -rf $(BUILD_DIR)
