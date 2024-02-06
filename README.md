@@ -39,34 +39,51 @@ p5.cpp aims to replicate the core features of the p5.js library, including:
 
 Refer to the [p5.js documentation](https://p5js.org/reference/) for a comprehensive list of features, as p5.c strives to mirror its functionality closely.
 
-<!-- ## Examples
+## Examples
 
 ```cpp
 #include "p5.hpp"
 
-void setup() {
-  createCanvas(400, 400);
+P5 p;
+
+void setup(){
+    p.createCanvas(500, 500, WebglMode::P2D);
+    p.frameRate(5);
+    Color c = p.color(18, 42, 22, 200);
+    p.printColor(c);
+
+    p.colorMode(ColorMode::HSB);
+    Color c1 = p.color(18, 42, 22, 200);
+    p.printColor(c1);
+
+    p.colorMode(ColorMode::HSL);
+    Color c2 = p.color(18, 42, 22, 200);
+    p.printColor(c2);
 }
 
-void draw() {
-  background(220);
-  fill(255, 0, 0);
-  ellipse(width / 2, height / 2, 50, 50);
+void draw(){
 }
 
-int main() {
-  runSketch();
-  return 0;
+void windowResized(){
 }
-``` -->
+
+int main(){
+    p.registerMethod("setup", setup);
+    p.registerMethod("draw", draw);
+    p.registerMethod("windowResized", windowResized);
+
+    p.run();
+    return 0;
+}
+```
 
 ## Documentation
 
-Check the `docs` directory for the p5.c documentation, which provides detailed information on functions, syntax, and usage.
+Check the `docs` directory for the p5.cpp documentation, which provides detailed information on functions, syntax, and usage.
 
 ## Contributing
 
-Feel free to contribute to p5.c by opening issues or submitting pull requests. Follow the guidelines in the `CONTRIBUTING.md` file.
+Feel free to contribute to p5.cpp by opening issues or submitting pull requests. Follow the guidelines in the `CONTRIBUTING.md` file.
 
 ## License
 
