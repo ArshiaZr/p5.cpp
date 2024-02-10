@@ -30,9 +30,12 @@ enum CursorType {
     WAIT
 };
 
+#define DEG_TO_RAD  PI / 180.0f
+#define RAD_TO_DEG  180.0f / PI
+
 enum AngleMode{
-    DEGREES, // default
-    RADIANS
+    RADIANS, // default
+    DEGREES
 };
 
 // SHAPE

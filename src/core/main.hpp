@@ -89,6 +89,44 @@ public:
     void square(float x, float y, float s);
     void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
+    // angles
+    AngleMode angleMode();
+    void angleMode(AngleMode mode);
+
+    // inverse of cosine expects -1 to 1
+    // returns value 0 to PI
+    double acos(double ratio);
+
+    // inverse of sine expects -1 to 1
+    // returns value -PI/2 to PI/2
+    double asin(double ratio);
+
+    // inverse of tangent expects -infinity to infinity
+    // returns value -PI/2 to PI/2
+    double atan(double ratio);
+
+    // Calculates the angle formed by a specified point expecting y and x coordinates
+    // returns value -PI to PI
+    double atan2(double y, double x);
+
+    // cosine
+    // returns value -1 to 1
+    double cos(double angle);
+
+    // sine
+    // returns value -1 to 1
+    double sin(double angle);
+
+    // tangent
+    // returns value -infinity to infinity
+    double tan(double angle);
+
+    // Converts a radian measurement to its corresponding degree measurement
+    double degrees(double radians);
+
+    // Converts a degree measurement to its corresponding radian measurement
+    double radians(double degrees);
+
     void createCanvas(int w, int h, GlMode mode);
     void registerMethod(std::string method, std::function<void()> callback);
     void run();
@@ -110,6 +148,8 @@ private:
         {360, 100, 100, 255}
     };
     std::unordered_map<std::string, std::function<void()>> _registeredMethods;
+
+    AngleMode _angleMode;
 
     // *************************
     // * Private API functions *
@@ -134,6 +174,12 @@ private:
     std::vector<float> _colorFromHSL(std::vector<float> hsla);
     std::vector<float>  _parseColorInputs(unsigned int r, unsigned int g, unsigned int b);
     std::vector<float>  _parseColorInputs(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
+
+    // angles
+    double _toRadians(double angle);
+    double _toDegrees(double angle);
+    double _fromRadians(double angle);
+    double _fromDegrees(double angle);
 };
 
 #endif // MAIN_HPP

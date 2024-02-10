@@ -47,6 +47,7 @@ void P5::_initialize(){
     // TODO: get acutal value of displayWidth and displayHeight
     this->_registeredMethods = {};
     this->glVersion = GlMode::P2D;
+    this->_angleMode = AngleMode::RADIANS;
 }
 
 void P5::_setup(){
