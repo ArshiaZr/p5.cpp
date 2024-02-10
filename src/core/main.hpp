@@ -4,6 +4,7 @@
 #define MAIN_HPP
 
 #include "constants.hpp"
+#include "renderer/renderer.hpp"
 #include <string>
 #include <unordered_map>
 #include <functional>
@@ -26,10 +27,13 @@ public:
     double deltaTime;
     unsigned int displayWidth;
     unsigned int displayHeight;
-    WebglMode webglVersion;
+    GlMode glVersion;
     
     // Constructor
     P5();
+
+    // decstructor
+    ~P5();
 
     // *************************
     // * Public API functions *
@@ -52,6 +56,10 @@ public:
     int second();
     int year();
 
+    // Context
+    void push();
+    void pop();
+
     // Color
     unsigned int alpha(Color color);
     unsigned int blue(Color color);
@@ -70,8 +78,18 @@ public:
     void colorMode(ColorMode mode);
     void printColor(Color c);
 
+    // Shape
+    void arc(float x, float y, float w, float h, float start, float stop, ArcMode mode = ArcMode::CHORD);
+    void ellipse(float x, float y, float w, float h);
+    void circle(float x, float y, float d);
+    void line(float x1, float y1, float x2, float y2);
+    void point(float x, float y);
+    void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+    void rect(float x, float y, float w, float h);
+    void square(float x, float y, float s);
+    void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
-    void createCanvas(int w, int h, WebglMode mode);
+    void createCanvas(int w, int h, GlMode mode);
     void registerMethod(std::string method, std::function<void()> callback);
     void run();
 
@@ -81,6 +99,7 @@ private:
     // *************************
     sf::RenderWindow _window;
     sf::VideoMode _desktop;
+    Renderer *_renderer;
     double _frameRate;
     int _targetFrameRate;
     bool _loop;
@@ -90,7 +109,6 @@ private:
         {360, 100, 100, 255},
         {360, 100, 100, 255}
     };
-    ColorMode _colorMode;
     std::unordered_map<std::string, std::function<void()>> _registeredMethods;
 
     // *************************
@@ -106,6 +124,10 @@ private:
     void _updateWindowSize();
     void _centerWindow();
     void _updateWebglMode();
+    // TODO: validate parameters
+    bool _isParametersValid(std::string name, std::vector<float> parameters);
+    float _toRadians(float degrees);
+    float _toDegrees(float radians);
 
     // Color
     std::vector<float> _colorFromHSB(std::vector<float> hsba);

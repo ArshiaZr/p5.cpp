@@ -10,7 +10,7 @@ float lerp(float start, float stop, double amt){
 
 // Public functions
 void P5::colorMode(ColorMode mode){
-    this->_colorMode = mode;
+    this->_renderer->setColorMode(mode);
 }
 
 unsigned int P5::alpha(Color color){
@@ -139,10 +139,11 @@ std::vector<float> P5::_parseColorInputs(unsigned int r, unsigned int g, unsigne
 
 std::vector<float> P5::_parseColorInputs(unsigned int r, unsigned int g, unsigned int b, unsigned int a){
     unsigned int maxes[4];
-    maxes[0] = this->_colorMaxes[(int)this->_colorMode][0];
-    maxes[1] = this->_colorMaxes[(int)this->_colorMode][1];
-    maxes[2] = this->_colorMaxes[(int)this->_colorMode][2];
-    maxes[3] = this->_colorMaxes[(int)this->_colorMode][3];
+    ColorMode mode = this->_renderer->getColorMode();
+    maxes[0] = this->_colorMaxes[(int)mode][0];
+    maxes[1] = this->_colorMaxes[(int)mode][1];
+    maxes[2] = this->_colorMaxes[(int)mode][2];
+    maxes[3] = this->_colorMaxes[(int)mode][3];
     std::vector<float> results(4, 0);
     results[0] = (float)r / maxes[0];
     results[1] = (float)g / maxes[1];
@@ -153,9 +154,9 @@ std::vector<float> P5::_parseColorInputs(unsigned int r, unsigned int g, unsigne
         results[i] = fminf(fmaxf(results[i], 0), 1);
     }
 
-    if(this->_colorMode == ColorMode::HSB){
+    if(mode == ColorMode::HSB){
         return this->_colorFromHSB(results);
-    } else if(this->_colorMode == ColorMode::HSL){
+    } else if(mode == ColorMode::HSL){
         return this->_colorFromHSL(results);
     }else{
         return {results[0] * 255, results[1] * 255, results[2] * 255, results[3] * 255};

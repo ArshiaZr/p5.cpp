@@ -12,6 +12,12 @@ P5::P5() {
     this->_setDisplaySize();
 }
 
+// Destructor implementation
+P5::~P5(){
+    this->_window.close();
+    delete this->_renderer;
+}
+
 // public functions
 void P5::registerMethod(std::string method, std::function<void()> callback){
     this->_registeredMethods[method] = callback;
@@ -30,17 +36,17 @@ void P5::_setDisplaySize(){
 }
 
 void P5::_initialize(){
+    this->_renderer = new Renderer();
     this->_millisStart = -1;
     this->_setSize(100, 100);
     this->frameCount = 0;
     this->deltaTime = 0;
     this->_frameRate = 0;
     this->_targetFrameRate = 60;
-    this->webglVersion = WebglMode::P2D;
+    this->glVersion = GlMode::P2D;
     // TODO: get acutal value of displayWidth and displayHeight
     this->_registeredMethods = {};
-    this->webglVersion = WebglMode::P2D;
-    this->_colorMode = ColorMode::RGB;
+    this->glVersion = GlMode::P2D;
 }
 
 void P5::_setup(){
@@ -98,19 +104,32 @@ void P5::_centerWindow(){
 }
 
 void P5::_updateWebglMode(){
-    // TODO: - impelemnt webgl mode
+    // TODO: - impelemnt gl version mode
     this->_window.setActive(false);
-    switch(this->webglVersion){
-        case WebglMode::P2D:
+    switch(this->glVersion){
+        case GlMode::P2D:
             this->_window.create(sf::VideoMode(this->width, this->height), "p5", sf::Style::Default, sf::ContextSettings(0, 0, 2));
             break;
-        case WebglMode::WEBGL:
+        case GlMode::WEBGL:
             // this->_window.create(sf::VideoMode(this->width, this->height), "p5", sf::Style::Default, sf::ContextSettings(0, 0, 2));
             break;
         default:
             break;
     }
     this->_window.setActive(true);
+}
+
+// TODO: validate parameters
+bool P5::_isParametersValid(std::string name, std::vector<float> parameters){
+    return true;
+}
+
+void P5::push(){
+    this->_renderer->push();
+}
+
+void P5::pop(){
+    this->_renderer->pop();
 }
 
 void P5::run(){

@@ -1,6 +1,10 @@
 #ifndef P5_CONSTANTS_HPP
 #define P5_CONSTANTS_HPP
 
+#include <string>
+#include <unordered_map>
+#include <variant>
+
 // Include necessary headers here
 
 // Constants
@@ -10,7 +14,7 @@
 
 // Enums
 // GRAPHICS
-enum WebglMode {
+enum GlMode {
     P2D, // default
     WEBGL,
     WEBGL2
@@ -32,6 +36,20 @@ enum AngleMode{
 };
 
 // SHAPE
+// enum RectMode{
+//     CORNER, // default
+//     CORNERS,
+//     CENTER,
+//     RADIUS
+// };
+
+// enum EllipseMode{
+//     CENTER,
+//     CORNER, // default
+//     CORNERS,
+//     RADIUS
+// };
+
 #define CORNER "corner" // ShapeMode
 #define CORNERS "corners" // ShapeMode
 #define CENTER "center" // ShapeMode and HorizontalAlign and VerticalAlign
@@ -115,5 +133,7 @@ enum FilterType {
     ERODE,
     DILATE
 };
+
+using ContextValues = std::variant<bool, double, unsigned int, std::string, ColorMode>;
 
 #endif // P5_CONSTANTS_HPP
