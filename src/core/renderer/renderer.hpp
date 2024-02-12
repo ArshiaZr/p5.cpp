@@ -26,7 +26,12 @@ public:
     ColorMode getColorMode();
 
     bool getDoStroke();
+    void setDoStroke(bool val);
+    void setStrokeColor(Color color);
+    
     bool getDoFill();
+    void setDoFill(bool val);
+    void setFillColor(Color color);
 
     std::string getEllipseMode();
 
@@ -64,7 +69,6 @@ private:
     // *************************
     // * Private API functions *
     // *************************
-
 };
 
 

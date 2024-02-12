@@ -57,6 +57,7 @@ public:
     unsigned int alpha(Color color);
     unsigned int blue(Color color);
     unsigned int brightness(Color color);
+    Color color(Color color);
     Color color(unsigned int gray);
     Color color(unsigned int gray, unsigned int alpha);
     Color color(unsigned int v1, unsigned int v2, unsigned int v3);
@@ -68,7 +69,7 @@ public:
     unsigned int red(Color color);
     unsigned int saturation(Color color);
     // TODO: implement maxes
-    void colorMode(ColorMode mode);
+
     void printColor(Color c);
 
     // Shape
@@ -119,6 +120,34 @@ public:
 
     // Converts a degree measurement to its corresponding radian measurement
     double radians(double degrees);
+
+    // setting
+    void background(Color color);
+    void background(unsigned int gray, unsigned int alpha);
+    void background(unsigned int gray);
+    void background(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int alpha);
+    void background(unsigned int v1, unsigned int v2, unsigned int v3);
+    void fill(Color color);
+    void fill(unsigned int gray, unsigned int alpha);
+    void fill(unsigned int gray);
+    void fill(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int alpha);
+    void fill(unsigned int v1, unsigned int v2, unsigned int v3);
+    void noFill();
+    void noStroke();
+    void stroke(Color color);
+    void stroke(unsigned int gray, unsigned int alpha);
+    void stroke(unsigned int gray);
+    void stroke(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int alpha);
+    void stroke(unsigned int v1, unsigned int v2, unsigned int v3);
+
+    // void clear();
+    void colorMode(ColorMode mode);
+    // void fill(Color color);
+    // void noFill();
+    // void stroke(Color color);
+    // void noStroke();
+    // void erase();
+    // void noErase();
 
     void createCanvas(int w, int h, GlMode mode);
     void registerMethod(std::string method, std::function<void()> callback);

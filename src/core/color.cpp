@@ -9,10 +9,6 @@ float lerp(float start, float stop, double amt){
 }
 
 // Public functions
-void P5::colorMode(ColorMode mode){
-    this->_renderer->setColorMode(mode);
-}
-
 unsigned int P5::alpha(Color color){
     return color.a;
 }
@@ -34,19 +30,23 @@ unsigned int P5::brightness(Color color){
 }
 
 Color P5::color(unsigned int gray){
-    return color(gray, 255);
+    return this->color(gray, 255);
 }
 
 Color P5::color(unsigned int gray, unsigned int alpha){
-    return color(gray, gray, gray, alpha);
+    return this->color(gray, gray, gray, alpha);
 }
 
 Color P5::color(unsigned int v1, unsigned int v2, unsigned int v3){
-    return color(v1, v2, v3, 255);
+    return this->color(v1, v2, v3, 255);
 }
 
 Color P5::color(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int alpha){
-    std::vector<float> rgba = this->_parseColorInputs(v1, v2, v3, alpha);
+    return this->color(Color(v1, v2, v3, alpha));
+}
+
+Color P5::color(Color color){
+    std::vector<float> rgba = this->_parseColorInputs(color.r, color.g, color.b, color.a);
     return Color(rgba[0], rgba[1], rgba[2], rgba[3]);
 }
 

@@ -116,8 +116,24 @@ bool Renderer::getDoStroke(){
     return std::get<bool>(this->_doStroke);
 }
 
+void Renderer::setDoStroke(bool val){
+    this->_doStroke = val;
+}
+
+void Renderer::setStrokeColor(Color color){
+    this->_strokeColor = color;
+}
+
 bool Renderer::getDoFill(){
     return std::get<bool>(this->_doFill);
+}
+
+void Renderer::setDoFill(bool val){
+    this->_doFill = val;
+}
+
+void Renderer::setFillColor(Color color){
+    this->_fillColor = color;
 }
 
 std::string Renderer::getEllipseMode(){
@@ -190,10 +206,10 @@ void Renderer::_arc(float x, float y, float w, float h, double start, double sto
 
             if(i == curves.size() - 1){
                 if(mode == ArcMode::CHORD){
-                    eachStroke.append(sf::Vertex(sf::Vector2f(x + curves[0][0] * rx, y + curves[0][1] * ry)));
+                    eachStroke.append(sf::Vertex(sf::Vector2f(x + curves[0][0] * rx, y + curves[0][1] * ry), std::get<Color>(this->_strokeColor)));
                 }else if(mode == ArcMode::PIE){
-                    eachStroke.append(sf::Vertex(sf::Vector2f(x, y)));
-                    eachStroke.append(sf::Vertex(sf::Vector2f(x + curves[0][0] * rx, y + curves[0][1] * ry)));
+                    eachStroke.append(sf::Vertex(sf::Vector2f(x, y), std::get<Color>(this->_strokeColor)));
+                    eachStroke.append(sf::Vertex(sf::Vector2f(x + curves[0][0] * rx, y + curves[0][1] * ry), std::get<Color>(this->_strokeColor)));
                 }
             }
 

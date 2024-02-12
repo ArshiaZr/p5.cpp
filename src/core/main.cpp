@@ -59,7 +59,6 @@ void P5::_setup(){
 
 void P5::_draw(){
     if(this->_registeredMethods["draw"]){
-        this->_window.clear();
         this->_callMethod("draw");
         this->_window.display();
     }
@@ -130,7 +129,6 @@ void P5::pop(){
 }
 
 void P5::run(){
-    this->_window.clear();
     this->_setup();
     this->_window.display();
 
