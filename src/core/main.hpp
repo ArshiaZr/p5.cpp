@@ -11,13 +11,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class Color: public sf::Color {
-    public:
-    // Inherit constructors from sf::Color
-    using sf::Color::Color;
-};
-
-
 class P5 {
 public:
     // public members
@@ -79,15 +72,15 @@ public:
     void printColor(Color c);
 
     // Shape
-    void arc(float x, float y, float w, float h, float start, float stop, ArcMode mode = ArcMode::CHORD);
+    void arc(float x, float y, float w, float h, double start, double stop, ArcMode mode = ArcMode::CHORD);
     void ellipse(float x, float y, float w, float h);
-    void circle(float x, float y, float d);
-    void line(float x1, float y1, float x2, float y2);
-    void point(float x, float y);
-    void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
-    void rect(float x, float y, float w, float h);
-    void square(float x, float y, float s);
-    void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
+    // void circle(float x, float y, float d);
+    // void line(float x1, float y1, float x2, float y2);
+    // void point(float x, float y);
+    // void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+    // void rect(float x, float y, float w, float h);
+    // void square(float x, float y, float s);
+    // void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
     // angles
     AngleMode angleMode();
@@ -166,8 +159,6 @@ private:
     void _updateWebglMode();
     // TODO: validate parameters
     bool _isParametersValid(std::string name, std::vector<float> parameters);
-    float _toRadians(float degrees);
-    float _toDegrees(float radians);
 
     // Color
     std::vector<float> _colorFromHSB(std::vector<float> hsba);

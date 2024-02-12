@@ -4,13 +4,15 @@
 #include <string>
 #include <unordered_map>
 #include <variant>
+#include <SFML/Graphics.hpp>
 
 // Include necessary headers here
 
 // Constants
-#define PI 3.14159265358979323846
-#define HALF_PI PI / 2
-// ... other constants ...
+#define PI 3.1415f
+#define HALF_PI (PI / 2.0f)
+#define TWO_PI (PI * 2.0f)
+#define QUARTER_PI (PI / 4.0f)
 
 // Enums
 // GRAPHICS
@@ -30,8 +32,8 @@ enum CursorType {
     WAIT
 };
 
-#define DEG_TO_RAD  PI / 180.0f
-#define RAD_TO_DEG  180.0f / PI
+#define DEG_TO_RAD (PI / 180.0f)
+#define RAD_TO_DEG (180.0f / PI)
 
 enum AngleMode{
     RADIANS, // default
@@ -137,6 +139,13 @@ enum FilterType {
     DILATE
 };
 
-using ContextValues = std::variant<bool, double, unsigned int, std::string, ColorMode>;
+class Color: public sf::Color {
+    public:
+    // Inherit constructors from sf::Color
+    using sf::Color::Color;
+};
+
+
+using ContextValues = std::variant<bool, double, unsigned int, std::string, ColorMode, Color>;
 
 #endif // P5_CONSTANTS_HPP

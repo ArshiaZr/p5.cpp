@@ -1,5 +1,6 @@
 #include "../main.hpp"
 #include <math.h>
+#include <iostream>
 
 // public functions
 void P5::angleMode(AngleMode mode){
