@@ -139,13 +139,8 @@ public:
     void stroke(unsigned int gray);
     void stroke(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int alpha);
     void stroke(unsigned int v1, unsigned int v2, unsigned int v3);
-
     // void clear();
     void colorMode(ColorMode mode);
-    // void fill(Color color);
-    // void noFill();
-    // void stroke(Color color);
-    // void noStroke();
     // void erase();
     // void noErase();
 
