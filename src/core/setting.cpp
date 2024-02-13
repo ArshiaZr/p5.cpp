@@ -77,3 +77,19 @@ void P5::stroke(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int 
 void P5::stroke(unsigned int v1, unsigned int v2, unsigned int v3){
     this->stroke(v1, v2, v3, 255);
 }
+
+void P5::strokeWeight(float weight){
+    this->_renderer->setStrokeWeight(weight);
+}
+
+void P5::ellipseMode(std::string mode){
+    if(mode == CENTER || mode == RADIUS || mode == CORNER || mode == CORNERS){
+        this->_renderer->setEllipseMode(mode);
+    }
+}
+
+void P5::rectMode(std::string mode){
+     if(mode == CENTER || mode == RADIUS || mode == CORNER || mode == CORNERS){
+        this->_renderer->setRectMode(mode);
+    }
+}

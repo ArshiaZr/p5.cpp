@@ -41,20 +41,6 @@ enum AngleMode{
 };
 
 // SHAPE
-// enum RectMode{
-//     CORNER, // default
-//     CORNERS,
-//     CENTER,
-//     RADIUS
-// };
-
-// enum EllipseMode{
-//     CENTER,
-//     CORNER, // default
-//     CORNERS,
-//     RADIUS
-// };
-
 #define CORNER "corner" // ShapeMode
 #define CORNERS "corners" // ShapeMode
 #define CENTER "center" // ShapeMode and HorizontalAlign and VerticalAlign
@@ -145,6 +131,17 @@ class Color: public sf::Color {
     using sf::Color::Color;
 };
 
+class Vector2f: public sf::Vector2f {
+    public:
+    // Inherit constructors from sf::Color
+    using sf::Vector2f::Vector2f;
+};
+
+class Vector3f: public sf::Vector3f {
+    public:
+    // Inherit constructors from sf::Color
+    using sf::Vector3f::Vector3f;
+};
 
 using ContextValues = std::variant<bool, double, unsigned int, std::string, ColorMode, Color>;
 

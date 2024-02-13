@@ -131,7 +131,6 @@ void P5::printColor(Color c){
     std::cout << "r: " << this->red(c) << " g: " << this->green(c) << " b: " << this->blue(c) << " a: " << this->alpha(c) << std::endl;
 }
 
-
 // Private functions
 std::vector<float> P5::_parseColorInputs(unsigned int r, unsigned int g, unsigned int b){
     return this->_parseColorInputs(r, g, b, 255);

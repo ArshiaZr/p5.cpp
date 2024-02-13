@@ -73,15 +73,21 @@ public:
     void printColor(Color c);
 
     // Shape
-    void arc(float x, float y, float w, float h, double start, double stop, ArcMode mode = ArcMode::CHORD);
+    void arc(float x, float y, float w, float h, double start, double stop, ArcMode mode = ArcMode::PIE);
     void ellipse(float x, float y, float w, float h);
-    // void circle(float x, float y, float d);
-    // void line(float x1, float y1, float x2, float y2);
-    // void point(float x, float y);
+    void circle(float x, float y, float d);
+    void line(float x1, float y1, float x2, float y2);
+    void point(float x, float y);
+    void point(Vector2f point);
+    void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+    // TODO: 3D
+    // void point(sf::Vector3f point);
+    // void point(float x, float y, float z);
+
     // void quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
-    // void rect(float x, float y, float w, float h);
-    // void square(float x, float y, float s);
-    // void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
+    void rect(float x, float y, float w, float h, float tl = 0, float tr = 0, float br = 0, float bl = 0);
+    void square(float x, float y, float s, float tl = 0, float tr = 0, float br = 0, float bl = 0);
+    void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
     // angles
     AngleMode angleMode();
@@ -139,10 +145,13 @@ public:
     void stroke(unsigned int gray);
     void stroke(unsigned int v1, unsigned int v2, unsigned int v3, unsigned int alpha);
     void stroke(unsigned int v1, unsigned int v2, unsigned int v3);
+    void strokeWeight(float weight);
     // void clear();
     void colorMode(ColorMode mode);
     // void erase();
     // void noErase();
+    void ellipseMode(std::string mode);
+    void rectMode(std::string mode);
 
     void createCanvas(int w, int h, GlMode mode);
     void registerMethod(std::string method, std::function<void()> callback);

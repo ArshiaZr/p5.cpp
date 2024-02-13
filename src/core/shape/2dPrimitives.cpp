@@ -67,6 +67,14 @@ void modeAdjust(float &x, float &y, float &w, float &h, std::string mode){
     } else if (mode == CORNERS) {
         w = w - x;
         h = h - y;
+        if(w < 0){
+            x = x + w;
+            w = -w;
+        }
+        if(h < 0){
+            y = y + h;
+            h = -h;
+        }
     } else if (mode == RADIUS) {
         x = x - w;
         y = y - h;
@@ -103,8 +111,102 @@ void P5::arc(float x, float y, float w, float h, double start, double stop, ArcM
     normalizeArcAngles(start, stop, w, h, true, correspondToSamePoint);
 
     if(correspondToSamePoint){
-        this->_renderer->_ellipse(x, y, w, h);
+        this->_renderer->_ellipse(x, y, w, h, this->_window);
     }else{
         this->_renderer->_arc(x, y, w, h, start, stop, mode, this->_window);
     }
+}
+
+void P5::ellipse(float x, float y, float w, float h){
+    if(!this->_isParametersValid("ellipse", {x, y, w, h})){
+        return;
+    }
+
+    if(!this->_renderer->getDoStroke() && !this->_renderer->getDoFill()){
+        return;
+    }
+
+    w = std::abs(w);
+    h = std::abs(h);
+
+    modeAdjust(x, y, w, h, this->_renderer->getEllipseMode());
+
+    this->_renderer->_ellipse(x, y, w, h, this->_window);
+}
+
+void P5::circle(float x, float y, float d){
+    this->ellipse(x, y, d, d);
+}
+
+void P5::line(float x1, float y1, float x2, float y2){
+    if(!this->_isParametersValid("line", {x1, y1, x2, y2})){
+        return;
+    }
+
+    if(!this->_renderer->getDoStroke()){
+        return;
+    }
+
+    this->_renderer->_line(x1, y1, x2, y2, this->_window);
+}
+
+void P5::point(float x, float y){
+    if(!this->_isParametersValid("point", {x, y})){
+        return;
+    }
+
+    if(!this->_renderer->getDoStroke()){
+        return;
+    }
+
+    this->_renderer->_point(x, y, this->_window);
+}
+
+void P5::point(Vector2f point){
+    this->point(point.x, point.y);
+}
+
+void P5::quad(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4){
+    if(!this->_isParametersValid("quad", {x1, y1, x2, y2, x3, y3, x4, y4})){
+        return;
+    }
+
+    if(!this->_renderer->getDoStroke() && !this->_renderer->getDoFill()){
+        return;
+    }
+
+    this->_renderer->_quad(x1, y1, x2, y2, x3, y3, x4, y4, this->_window);
+}
+
+void P5::rect(float x, float y, float w, float h, float tl, float tr, float br, float bl){
+    if(!this->_isParametersValid("rect", {x, y, w, h, tl, tr, br, bl})){
+        return;
+    }
+
+    if(!this->_renderer->getDoStroke() && !this->_renderer->getDoFill()){
+        return;
+    }
+
+    w = std::abs(w);
+    h = std::abs(h);
+
+    modeAdjust(x, y, w, h, this->_renderer->getRectMode());
+
+    this->_renderer->_rect(x, y, w, h, tl, tr, br, bl, this->_window);
+}
+
+void P5::square(float x, float y, float s, float tl, float tr, float br, float bl){
+    this->rect(x, y, s, s, tl, tr, br, bl);
+}
+
+void P5::triangle(float x1, float y1, float x2, float y2, float x3, float y3){
+    if(!this->_isParametersValid("triangle", {x1, y1, x2, y2, x3, y3})){
+        return;
+    }
+
+    if(!this->_renderer->getDoStroke() && !this->_renderer->getDoFill()){
+        return;
+    }
+
+    this->_renderer->_triangle(x1, y1, x2, y2, x3, y3, this->_window);
 }
