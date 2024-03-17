@@ -42,37 +42,34 @@ Refer to the [p5.js documentation](https://p5js.org/reference/) for a comprehens
 ## Examples
 
 ```cpp
+#include <iostream>
 #include "p5.hpp"
 
-P5 p;
 
+// Create a new instance of the P5 class
+P5& p5 = P5::getInstance();
+
+// Define the setup and draw functions
 void setup(){
-    p.createCanvas(500, 500, WebglMode::P2D);
-    p.frameRate(5);
-    Color c = p.color(18, 42, 22, 200);
-    p.printColor(c);
-
-    p.colorMode(ColorMode::HSB);
-    Color c1 = p.color(18, 42, 22, 200);
-    p.printColor(c1);
-
-    p.colorMode(ColorMode::HSL);
-    Color c2 = p.color(18, 42, 22, 200);
-    p.printColor(c2);
+    p5.createCanvas(400, 400);
 }
 
+// Define the setup and draw functions
 void draw(){
+    p5.background(220);
+    p5.fill(255);
+    p5.ellipse(200, 200, 100, 100);
 }
 
-void windowResized(){
-}
-
+// Main function
 int main(){
-    p.registerMethod("setup", setup);
-    p.registerMethod("draw", draw);
-    p.registerMethod("windowResized", windowResized);
+    // Register the setup and draw functions
+    p5.registerMethod("setup", setup);
+    p5.registerMethod("draw", draw);
 
-    p.run();
+    // Run the sketch
+    p5.run();
+
     return 0;
 }
 ```
