@@ -20,11 +20,13 @@ To use p5.cpp in your C++ projects, follow these steps:
    #include "p5.hpp"
    ```
 
-<!-- 3. Link your program with the `p5.c` library(or any other C compiler):
+3. Link your program with the `p5.cpp` library:
 
    ```bash
-   gcc your_program.c -o your_program -lp5
-   ``` -->
+   g++ your_program.cpp -o your_program -I/the/include/path -I/SFML/include/path -l/SFML/libs -L/p5/static/library -lp5
+   ```
+
+You can also use this [p5_cpp_starter](https://github.com/ArshiaZr/p5_cpp_starter) repository as a starter template for using p5.cpp in your C++ projects.(Recommended)
 
 ## Features
 
