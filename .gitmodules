@@ -1,0 +1,3 @@
+[submodule "examples/gameOfLife"]
+	path = examples/gameOfLife
+	url = https://github.com/ArshiaZr/gameOfLife.git
