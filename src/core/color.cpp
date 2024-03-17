@@ -3,11 +3,6 @@
 #include <iostream>
 
 
-// Helper functions
-float lerp(float start, float stop, double amt){
-    return start + (stop - start) * amt;
-}
-
 // Public functions
 unsigned int P5::alpha(Color color){
     return color.a;
@@ -78,10 +73,10 @@ unsigned int P5::hue(Color color){
 }
 
 Color P5::lerpColor(Color c1, Color c2, double amt){
-    unsigned int r = (unsigned int)lerp(c1.r, c2.r, amt);
-    unsigned int g = (unsigned int)lerp(c1.g, c2.g, amt);
-    unsigned int b = (unsigned int)lerp(c1.b, c2.b, amt);
-    unsigned int a = (unsigned int)lerp(c1.a, c2.a, amt);
+    unsigned int r = (unsigned int)this->lerp(c1.r, c2.r, amt);
+    unsigned int g = (unsigned int)this->lerp(c1.g, c2.g, amt);
+    unsigned int b = (unsigned int)this->lerp(c1.b, c2.b, amt);
+    unsigned int a = (unsigned int)this->lerp(c1.a, c2.a, amt);
     return color(r, g, b, a);
 
 }

@@ -18,9 +18,16 @@ P5::~P5(){
     delete this->_renderer;
 }
 
+
 // public functions
 void P5::registerMethod(std::string method, std::function<void()> callback){
     this->_registeredMethods[method] = callback;
+}
+
+// get instance
+P5& P5::getInstance() {
+    static P5 instance;
+    return instance;
 }
 
 // private functions
@@ -48,6 +55,22 @@ void P5::_initialize(){
     this->_registeredMethods = {};
     this->glVersion = GlMode::P2D;
     this->_angleMode = AngleMode::RADIANS;
+    this->mouseIsPressed = false;
+    this->mouseX = 0;
+    this->mouseY = 0;
+    this->pmouseX = 0;
+    this->pmouseY = 0;
+    this->movedX = 0;
+    this->movedY = 0;
+    this->mouseButton = "none";
+
+    this->_permutation = std::vector<int>(256);
+    std::random_device rd;
+    this->_noiseGenerator = std::mt19937_64(rd());
+    this->_randomGenerator = std::default_random_engine(rd());
+    std::iota(this->_permutation.begin(), this->_permutation.end(), 0);
+    std::shuffle(this->_permutation.begin(), this->_permutation.end(), this->_noiseGenerator);
+    this->_permutation.insert(this->_permutation.end(), this->_permutation.begin(),this->_permutation.end());
 }
 
 void P5::_setup(){
@@ -83,8 +106,48 @@ void P5::_manageEvents(){
                     this->_callMethod("windowResized");
                 }
                 break;
+            case sf::Event::MouseButtonPressed:
+                if(event.mouseButton.button == sf::Mouse::Left){
+                    this->mouseButton = LEFT;
+                }else if(event.mouseButton.button == sf::Mouse::Right){
+                    this->mouseButton = RIGHT;
+                }else if(event.mouseButton.button == sf::Mouse::Middle){
+                    this->mouseButton = CENTER;
+                }
+                if (!this->mouseIsPressed) {
+                    this->mouseIsPressed = true;
+                    if(this->_registeredMethods["mouseClicked"]){
+                        this->_callMethod("mouseClicked");
+                    }
+                }
+                if(this->_registeredMethods["mousePressed"]){
+                    this->_callMethod("mousePressed");
+                }
+                break;
+            case sf::Event::MouseButtonReleased:
+                if (this->mouseIsPressed) {
+                    this->mouseIsPressed = false;
+                    if(this->_registeredMethods["mouseClicked"]){
+                        this->_callMethod("mouseClicked");
+                    }
+                }
+                if(this->_registeredMethods["mouseReleased"]){
+                    this->_callMethod("mouseReleased");
+                }
+                break;
+            case sf::Event::MouseMoved:
+                this->pmouseX = this->mouseX;
+                this->pmouseY = this->mouseY;
+                this->movedX = event.mouseMove.x - this->mouseX;
+                this->movedY = event.mouseMove.y - this->mouseY;
+                this->mouseX = event.mouseMove.x;
+                this->mouseY = event.mouseMove.y;
+                if(this->_registeredMethods["mouseMoved"]){
+                    this->_callMethod("mouseMoved");
+                }
+                break;
             default:
-            break;
+                break;
         }
     }
 }

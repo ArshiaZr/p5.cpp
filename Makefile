@@ -1,7 +1,7 @@
 CXX := g++  # Compiler
 CXXFLAGS := -std=c++17 -Wall -Wextra  # Add the -std=c++11 flag here
 SRC_DIR := src
-SRC_SUBDIRS := $(filter %/,$(wildcard $(SRC_DIR)/core/*/))
+SRC_SUBDIRS := $(filter %/,$(wildcard $(SRC_DIR)/*/*/))
 SRC_FILES := $(wildcard $(SRC_DIR)/**/*.cpp $(SRC_DIR)/*.cpp)
 OBJ_DIR := build/obj
 OBJ_FILES := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))

@@ -10,12 +10,24 @@
 #include <functional>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <random>
 
 class P5 {
 public:
+    // Instance
+    static P5& getInstance();
+    
     // public members
     unsigned int width;
     unsigned int height;
+    unsigned int mouseX;
+    unsigned int mouseY;
+    int movedX;
+    int movedY;
+    unsigned int pmouseX;
+    unsigned int pmouseY;
+    std::string mouseButton;
+    bool mouseIsPressed;
     long frameCount;
     double deltaTime;
     unsigned int displayWidth;
@@ -89,7 +101,51 @@ public:
     void square(float x, float y, float s, float tl = 0, float tr = 0, float br = 0, float bl = 0);
     void triangle(float x1, float y1, float x2, float y2, float x3, float y3);
 
-    // angles
+    // ** Math **
+
+    // calculations
+    double abs(double value);
+    double ceil(double value);
+    double constrain(double value, double min, double max);
+    double dist(double x1, double y1, double x2, double y2);
+    double exp(double value);
+    double floor(double value);
+    double lerp(double start, double stop, double amt);
+    double log(double value);
+    double mag(double a, double b);
+    double map(double value, double start1, double stop1, double start2, double stop2);
+    double max(double a, double b);
+    double max(std::vector<double> values);
+    double min(double a, double b);
+    double min(std::vector<double> values);
+    double norm(double value, double start, double stop);
+    double pow(double value, double exponent);
+    double round(double value);
+    double sq(double value);
+    double sqrt(double value);
+    double fract(double value);
+
+    // random
+    double randomSeed(unsigned int seed);
+    double random(double min, double max);
+    double random(double max);
+    double random();
+    double random(std::vector<double> values);
+    float random(std::vector<float> values);
+    int random(std::vector<int> values);
+    // TODO: vector for random
+    double randomGaussian(double mean, double sd);
+    double randomGaussian(double sd);
+    double randomGaussian();
+
+    // noise
+    double noiseSeed(unsigned int seed);
+    double noise(double x, double y, double z);
+    double noise(double x, double y);
+    double noise(double x);
+
+
+    // trigonometry
     AngleMode angleMode();
     void angleMode(AngleMode mode);
 
@@ -153,7 +209,7 @@ public:
     void ellipseMode(std::string mode);
     void rectMode(std::string mode);
 
-    void createCanvas(int w, int h, GlMode mode);
+    void createCanvas(int w, int h, GlMode mode = GlMode::P2D);
     void registerMethod(std::string method, std::function<void()> callback);
     void run();
 
@@ -176,6 +232,9 @@ private:
     std::unordered_map<std::string, std::function<void()>> _registeredMethods;
 
     AngleMode _angleMode;
+    std::default_random_engine _randomGenerator;
+    std::mt19937_64 _noiseGenerator;
+    std::vector<int> _permutation{};
 
     // *************************
     // * Private API functions *
@@ -190,6 +249,20 @@ private:
     void _updateWindowSize();
     void _centerWindow();
     void _updateWebglMode();
+        
+    // Events
+    // void _mousePressed();
+    // void _mouseReleased();
+    // void _mouseClicked();
+    // void _mouseMoved();
+    // TODO 
+    // doubleClicked()
+    // mouseWheel()
+    // requestPointerLock()
+    // exitPointerLock()
+    
+    // mouseDragged()
+
     // TODO: validate parameters
     bool _isParametersValid(std::string name, std::vector<float> parameters);
 
