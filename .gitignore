@@ -2,4 +2,9 @@
 /.vscode
 /build/*
 /src/main.cpp
-/examples/*
+/examples/car
+/examples/world
+/examples/gameOfLife
+/Makefile.back
+/Makefile.back.new
+/package

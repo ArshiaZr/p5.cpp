@@ -1,5 +1,5 @@
 // File: calculations.cpp
-#include "../main.hpp"
+#include "main.hpp"
 #include <cmath>
 
 

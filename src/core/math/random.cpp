@@ -1,5 +1,5 @@
 // File: random.cpp
-#include "../main.hpp"
+#include "main.hpp"
 #include <stdlib.h>
 
 double P5::randomSeed(unsigned int seed) {

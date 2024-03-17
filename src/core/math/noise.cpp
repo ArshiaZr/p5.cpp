@@ -1,5 +1,5 @@
 // File: noise.cpp
-#include "../main.hpp"
+#include "main.hpp"
 #include <algorithm>
 #include <numeric>
 #include <iostream>
