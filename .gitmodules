@@ -1,3 +1,6 @@
 [submodule "examples/gameOfLife"]
 	path = examples/gameOfLife
 	url = https://github.com/ArshiaZr/gameOfLife.git
+[submodule "examples/smoothLife"]
+	path = examples/smoothLife
+	url = https://github.com/ArshiaZr/smoothLife.git
